@@ -1,0 +1,1 @@
+/thumb.php?img=uploads/noticias/<?= $noticia->banner ?>&width=330&height=230
