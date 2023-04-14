@@ -1,0 +1,1 @@
+../../thumb.php?tipo=nor&amp;w=700&amp;h=500&amp;img=uploads/noticias/642dac849d4fb.png
