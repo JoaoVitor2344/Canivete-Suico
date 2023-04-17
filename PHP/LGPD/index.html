@@ -1,0 +1,48 @@
+<?php
+ 
+// Verifica se a função "seo" com os argumentos booleanos false e 0 retorna uma string vazia
+if(seo(false, 0) == "") { 
+
+	// Verifica se o cookie "lgpd" não foi setado
+	if(!isset($_COOKIE['lgpd'])) { 
+		
+		// Define o valor do cookie como "true"
+		$valor = "true";
+		// Define o cookie "lgpd" com o valor "true" e o tempo de expiração de 8 horas, path como '/' e domain como NULL
+		setcookie("lgpd", $valor, time()+(8 * 3600), '/', NULL);		
+
+		?>
+		<!-- Estilos CSS -->
+		<style>
+			.swal2-popup {
+				font-size: 0.7rem !important;
+			}
+			.swal2-title {
+				font-size: 20px!important;
+			}
+		</style>
+
+		<!-- Script JavaScript -->
+		<script>
+			// Aguarda o carregamento completo do DOM
+			$(document).ready(function() {
+				// Exibe um pop-up com informações sobre a LGPD
+				Swal.fire({
+					title: '<a href="https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd" target="blank">Leis LGPD</a>',
+					icon: 'info',
+					position: 'bottom-start',
+					backdrop: false,
+					html:
+						'A Fomento Tech preza pela segurança dos seus <b>dados pessoais</b> ' +
+						'e pelas leis <a href="https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd" target="blank">LGPD</a> ',
+					showCloseButton: true,
+				}); 
+			});	
+		</script>
+	<?php 
+	} else {
+		// Caso o cookie "lgpd" já esteja setado, exibe uma mensagem de log no console
+		echo "<script>console.log('Cookie LGPD está ativado')</script>";
+	} 
+}
+?>
