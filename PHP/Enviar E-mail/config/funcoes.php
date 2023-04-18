@@ -1,7 +1,7 @@
 <?php 
 
 function sendMail($nomeDestino, $emailDestino, $assunto, $msg, PDO $conn, $arquivo = "") {
-  $mail = new PHPMailer(true);
+  $mail = new PHPMailer();
   $mail->isSMTP();
   $mail->SMTPDebug   = 1;
   $mail->SMTPSecure = 'ssl';
