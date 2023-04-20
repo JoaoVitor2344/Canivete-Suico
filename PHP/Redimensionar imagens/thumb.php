@@ -14,25 +14,29 @@ try {
     
     // Calculando as novas dimensões mantendo a proporção
     if ($originalWidth > $originalHeight) {
-       $newHeight = ceil($originalHeight * ($newWidth / $originalWidth));
+      $newHeight = ceil($originalHeight * ($newWidth / $originalWidth));
     } else {
-       $newWidth = ceil($originalWidth * ($newHeight / $originalHeight));
+      $newWidth = ceil($originalWidth * ($newHeight / $originalHeight));
     }
     
     // Criando uma nova imagem a partir do arquivo original
     $extensao = pathinfo($filename, PATHINFO_EXTENSION);
     switch ($extensao) {
-       case 'jpg':
-       case 'jpeg':
-          $imagemOriginal = imagecreatefromjpeg($filename);
-          break;
-       case 'png':
-          $imagemOriginal = imagecreatefrompng($filename);
-          break;
+        case 'jpg':
+        case 'jpeg':
+            $imagemOriginal = imagecreatefromjpeg($filename);
+            break;
+        case 'png':
+            $imagemOriginal = imagecreatefrompng($filename);
+            imagealphablending($imagemOriginal, false); // Desativa o blending
+            imagesavealpha($imagemOriginal, true); // Salva a transparência
+            break;
     }
     
     // Criando uma nova imagem redimensionada
     $imagemRedimensionada = imagecreatetruecolor($newWidth, $newHeight);
+    imagealphablending($imagemRedimensionada, false); // Desativa o blending
+    imagesavealpha($imagemRedimensionada, true); // Salva a transparência
     imagecopyresampled($imagemRedimensionada, $imagemOriginal, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
     
     // Convertendo a imagem redimensionada para o formato WebP
@@ -42,7 +46,6 @@ try {
     // Liberando a memória
     imagedestroy($imagemOriginal);
     imagedestroy($imagemRedimensionada);
-
 } catch (Exception $e) {
     echo $e->getMessage();
 }
