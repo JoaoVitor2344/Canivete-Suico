@@ -1,0 +1,55 @@
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function() {
+      // Criar um novo chat
+      $.ajax({
+          url: 'https://dexter-s-laboratory-default-rtdb.firebaseio.com/messages.json',
+          method: 'GET',
+          data: JSON.stringify({}),
+          dataType: 'json',
+          success: function(response) {
+              console.log(response);
+          },
+      });
+
+      // Consulta chat
+      $.ajax({
+          url: 'https://dexter-s-laboratory-default-rtdb.firebaseio.com/messages.json',
+          method: 'GET',
+          dataType: 'json',
+          success: function(response) {
+              console.log(response);
+          },
+      });
+
+      // Iniciar conversa
+      $.ajax({
+          url: "https://dexter-s-laboratory-default-rtdb.firebaseio.com/messages.json",
+          type: "POST",
+          data: JSON.stringify({
+              nome: "Seu Nome",
+              mensagem: "Sua Mensagem"
+          }),
+          contentType: "application/json; charset=utf-8",
+          success: function (data) {
+              console.log("Mensagem enviada com sucesso.");
+          },
+          error: function (xhr, status, error) {
+              console.log("Erro ao enviar mensagem: " + error);
+          }
+      });
+
+      // Enviar mensagem
+      $.ajax({
+          url: "https://dexter-s-laboratory-default-rtdb.firebaseio.com/messages/NUbvYfcKN4XpeqUzDB4.json",
+          method: "PUT",
+          data: JSON.stringify({ "nome": "João", "mensagem": "Olá, mundo!" }),
+          success: function(response) {
+              console.log("Mensagem enviada com sucesso!");
+          },
+          error: function(xhr, status, error) {
+              console.error("Erro ao enviar mensagem:", error);
+          }
+      });
+  });
+</script>
