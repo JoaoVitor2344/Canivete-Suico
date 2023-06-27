@@ -1,0 +1,120 @@
+<style>
+  #categorias {
+    position: relative;
+    display: flex; 
+    justify-content: space-between;
+    background-color: white; 
+    padding: 20px; 
+  }
+
+  #categorias ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  #categorias a {
+    cursor: pointer;
+  }
+
+  .oculto {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    z-index: 1;
+    width: 100%;
+  }
+  
+  .linha {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .linha:hover {
+    background-color: #8080802e;
+  }
+
+  .content {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 20%;
+    z-index: 1;
+
+    padding: 20px;
+    background-color: white;
+    width: calc(80% - 20px);
+  }
+</style>
+
+<div class="container">
+  <div id="categorias">
+    <ul>
+      <li class="categoria">
+        <a>Todas categorias</a>
+        <div class="oculto">
+          <div style="padding: 20px 0; background-color: white; width: 20%;">
+            <div class="linha">
+              <a>Teste</a>
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </div>
+          <div class="content">
+            <h1>Teste</h1>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $(".categoria").hover(function() {
+      $(this).find('.oculto').fadeIn("fast");
+    });
+
+    $(".categoria").mouseleave(function() {
+      // Delay para verificar se o mouse ainda esta fora do elemento
+      setTimeout(() => {
+        if(!$(this).is(":hover")) {
+          $(this).find('.oculto').fadeOut("fast");
+        }
+      }, 100);
+    });
+
+    $(".linha").hover(function() {
+      parent = $(this).parent().parent();
+      $(parent).find('.content').fadeIn("fast");
+    });
+
+    $(".linha").mouseleave(function() {
+      parent = $(this).parent().parent();
+      content = $(parent).find('.content');
+
+      setTimeout(() => {
+        if(!$(content).is(":hover")) {
+          $(content).fadeOut("fast");
+        }
+      }, 100);
+    })
+    
+    $('.content').mouseleave(function() {
+      linha = $(this).parent().parent();
+      linha = $(linha).find('.linha');
+
+      setTimeout(() => {
+        if(!$(linha).is(":hover")) {
+          $(this).fadeOut("fast");
+        }
+      }, 100);
+    })
+  });
+</script>
